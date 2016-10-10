@@ -1861,3 +1861,39 @@ var eightHourForecast = rainyDay.filter(function(hour, idx, array){
 //this filter function returns all rainy hours that are eight hours from the current time
 
 console.log(eightHourForecast);
+
+
+//3. Return an array with only the temperatures at each hour using one method
+
+var tempHourly = weatherData.hourly.data.map(function(dataObj){
+  return dataObj.temperature;
+});
+
+console.log(tempHourly);
+
+
+
+//4. Return an array of Date objects that say when it is going to rain
+
+var rainyDates = weatherData.hourly.data.filter(function(dataObj){
+  if(dataObj.summary.indexOf('ain') >= 0){
+    return dataObj;
+  }
+  //this filter method returns all hours that have rain in the summary
+}).reduce(function(array, data){
+  var date = new Date(data.time * 1000).toLocaleDateString();
+  if(array.indexOf(date) >= 0){
+    return array;
+  }
+  else{
+    array.push(date);
+    return array;
+  }
+}, []);
+//the reduce method takes the dates within the data object, converts them to a new date that is a locale date string
+//then adds them to the empty array so long as they are not currently present in the array
+//this eliminates doubles
+
+console.log(rainyDates);
+
+

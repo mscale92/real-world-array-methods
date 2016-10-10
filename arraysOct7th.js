@@ -295,6 +295,36 @@ console.log(printData);
 
 
 
+//The final chain!
+
+var peopleChain = data.filter(function(person){
+  if(person.email.indexOf(".biz") >= 0 ){
+    return person;
+  }
+  
+}).map(function(person){
+  var address = person.address;
+  return address.city;
+  
+}).reduce(function(double, city){
+  if(double.indexOf(city) >= 0){
+    return double;
+  }
+  else{
+    double.push(city);
+    return double;
+  }
+  
+}, []).forEach(function(city){
+  console.log(city);
+});
+
+console.log(peopleChain);
+
+
+
+
+
 //Weather Data
 
 var weatherData = {

@@ -1897,3 +1897,48 @@ var rainyDates = weatherData.hourly.data.filter(function(dataObj){
 console.log(rainyDates);
 
 
+//5. Return a boolean that says whether or not it will be sunny every day of the week via the daily data
+
+var sunnyDays = weatherData.daily.data.every(function(dataObj){
+  return dataObj.summary.indexOf("sun") >= 0;
+});
+
+console.log(sunnyDays);
+
+
+
+//6. Use a method to find out what the hottest temperature will be in the day via the hourly data
+
+var hottestTemp = weatherData.hourly.data.reduce(function(hottest, objData){
+  if(hottest <= objData.temperature){
+    return objData.temperature;
+  }
+  else{
+    return hottest;
+  }
+}, 0);
+
+console.log(hottestTemp);
+
+
+
+//7. Using the daily data, find out how many times each icon appears throughout the week
+
+var iconCount = weatherData.daily.data.reduce(function(container, objData){
+  if(container[objData.icon]){
+    container[objData.icon] += 1;
+    return container;
+  }
+  else{
+    container[objData.icon] = 1;
+    return container;
+  }
+
+}, {});
+//this reduce method tallies the amount of times the icons appear each day of the week
+//if an icon has not been set as the key name of the container, it is added as a key name
+//with the value of one.
+//if an icon name is already set in the container, then the icon key name simply adds one to its value
+
+
+console.log(iconCount);
